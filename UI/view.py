@@ -36,10 +36,13 @@ class View:
         self.txt_titolo = ft.Text(value="Musei di Torino", size=38, weight=ft.FontWeight.BOLD)
 
         # --- Sezione 2: Filtraggio ---
-        # TODO
+
+        self.campo_museo = ft.Dropdown(label="Museo", options=[],on_change=self.controller.museo_dropdown)
+        self.campo_epoca = ft.Dropdown(label="Epoca", options=[],on_change=self.controller.epoche_dropdown)
 
         # Sezione 3: Artefatti
-        # TODO
+        self.bottone_mostra=ft.ElevatedButton(text="mostra artefatti",on_click=self.controller.mostra_artefatti)
+        self.lista_artefatti=ft.ListView(expand=True,padding=10,width=500,spacing=8)
 
         # --- Toggle Tema ---
         self.toggle_cambia_tema = ft.Switch(label="Tema scuro", value=True, on_change=self.cambia_tema)
@@ -53,13 +56,29 @@ class View:
             ft.Divider(),
 
             # Sezione 2: Filtraggio
-            # TODO
+            ft.Row(
+                controls=[
+                    self.campo_museo,
+                    self.campo_epoca,
+                ],
+                alignment=ft.MainAxisAlignment.CENTER
+            ),
+            ft.Divider(),
 
             # Sezione 3: Artefatti
-            # TODO
+            ft.Column(
+                controls=[
+                    self.bottone_mostra,
+                    self.lista_artefatti,
+                ],
+                alignment=ft.MainAxisAlignment.CENTER,
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER
+            )
         )
 
         self.page.scroll = "adaptive"
+        self.controller.popola_musei()
+        self.controller.popola_epoche()
         self.page.update()
 
     def cambia_tema(self, e):

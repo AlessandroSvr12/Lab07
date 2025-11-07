@@ -10,4 +10,15 @@ class ArtefattoDAO:
     def __init__(self):
         pass
 
-    # TODO
+    def get_all_artefatti(self):
+        conn = ConnessioneDB.get_connection()
+        cursor = conn.cursor()
+        artefatti = []
+        cursor.execute("SELECT * FROM artefatto")
+        risultati = cursor.fetchall()
+        for riga in risultati:
+            artefatto = Artefatto(riga[0], riga[1], riga[2], riga[3], riga[4])
+            artefatti.append(artefatto)
+        cursor.close()
+        conn.close()
+        return artefatti if artefatti else None

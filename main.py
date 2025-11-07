@@ -14,3 +14,6 @@ def main(page: ft.Page):
 
 
 ft.app(target=main)
+
+
+#il database pare sembra mancare un insert, sfasando tutto con la pinacoteca
